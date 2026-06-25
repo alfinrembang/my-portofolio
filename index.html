@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -283,7 +283,7 @@
       </div>
     </div>
     
-    <div id="app" class="relative">
+    <div id="app" class="relative overflow-x-hidden w-full max-w-[100vw]">
       <!-- FIXED CYBERPUNK GRID BACKGROUND -->
       <div class="fixed inset-0 pointer-events-none z-[-30] bg-grid-pattern transition-colors duration-500"></div>
 
@@ -346,9 +346,9 @@
           <!-- MASSIVE BACKGROUND TEXT (Relative wrapper preserves layout flow) -->
           <div class="relative z-0 w-full h-[15vh] md:h-[20vh] mt-0 mb-8 md:mb-12 pointer-events-none flex items-center justify-center">
             <!-- Center the overflowing text without breaking animation -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <div class="animate-slide-down-solid [animation-delay:2800ms]">
-                <h1 class="text-[20vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] font-black tracking-tighter uppercase flex flex-row items-center justify-center transition-colors duration-500 whitespace-nowrap">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center">
+              <div class="animate-slide-down-solid [animation-delay:2800ms] w-full flex justify-center">
+                <h1 class="text-[14vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] font-black tracking-tighter uppercase flex flex-row items-center justify-center transition-colors duration-500 whitespace-nowrap">
                   <span class="text-stroke-2 glitch-hover cursor-pointer pointer-events-auto" data-text="ALFIN.">ALFIN.</span>
                   <span class="text-[#111] dark:text-white ml-[1vw] md:ml-[2vw] drop-shadow-[0_0_25px_rgba(99,102,241,0.6)] dark:drop-shadow-[0_0_30px_rgba(34,211,238,0.7)] transition-all duration-500 glitch-hover cursor-pointer pointer-events-auto" data-text="RA">RA</span>
                 </h1>
