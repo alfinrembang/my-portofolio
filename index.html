@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DYMAS ALFIN - UI/UX Designer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              anton: ['Anton', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            animation: {
+              'slide-up': 'slide-up 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-down': 'slide-down 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-down-solid': 'slide-down-solid 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-down-center': 'slide-down-center 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-right': 'slide-right 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'fade-in': 'fade-in 1.5s ease-out forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'wobble': 'wobble 5s ease-in-out infinite',
+              'pulse-slow': 'pulse-slow 4s ease-in-out infinite',
+              'smoke': 'smoke 8s ease-in-out infinite',
+              'blink': 'blink 1.2s step-end infinite',
+              'shimmer': 'shimmer 8s linear infinite',
+              'marquee': 'marquee 25s linear infinite',
+            },
+            keyframes: {
+              'slide-up': {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'slide-down': {
+                '0%': { opacity: '0', transform: 'translateY(-60px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'slide-down-solid': {
+                '0%': { transform: 'translateY(-60px)' },
+                '100%': { transform: 'translateY(0)' },
+              },
+              'slide-down-center': {
+                '0%': { opacity: '0', transform: 'translate(-50%, -60px)' },
+                '100%': { opacity: '1', transform: 'translate(-50%, 0)' },
+              },
+              'slide-right': {
+                '0%': { opacity: '0', transform: 'translateX(-60px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              },
+              'fade-in': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              'float': {
+                '0%': { transform: 'translateY(0px) rotate(0deg) scale(1)' },
+                '33%': { transform: 'translateY(-15px) rotate(2deg) scale(1.02)' },
+                '66%': { transform: 'translateY(10px) rotate(-2deg) scale(0.98)' },
+                '100%': { transform: 'translateY(0px) rotate(0deg) scale(1)' },
+              },
+              'pulse-slow': {
+                '0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
+                '50%': { opacity: '0.5', transform: 'scale(1.05)' },
+              },
+              'smoke': {
+                '0%': { transform: 'translate(-50%, 0) scale(0.8) rotate(0deg)', opacity: '0' },
+                '20%': { opacity: '0.6' },
+                '80%': { opacity: '0.6' },
+                '100%': { transform: 'translate(-50%, -150px) scale(1.5) rotate(45deg)', opacity: '0' },
+              },
+              'blink': {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0' },
+              },
+              'shimmer': {
+                '0%': { backgroundPosition: '-200% center' },
+                '100%': { backgroundPosition: '200% center' },
+              },
+              'wobble': {
+                '0%, 100%': { transform: 'translateY(0) rotate(-3deg)' },
+                '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+              },
+              'marquee': {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="src/index.css">
+    <style>
+      /* Fallback for components that might flash before Tailwind loads */
+      body { visibility: hidden; }
+
+      /* Custom Tech Grid Background */
+      .bg-grid-pattern {
+        background-size: 50px 50px;
+        background-image: 
+          linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+        /* Fade the grid out towards the edges */
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      }
+      .dark .bg-grid-pattern {
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      }
+
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease-out;
+        display: none; /* hidden on mobile */
+      }
+      @media (pointer: fine) {
+        body, a, button, input, textarea {
+          cursor: none !important;
+        }
+        #custom-cursor {
+          display: block;
+        }
+      }
+      .cursor-dot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 6px;
+        background-color: #ef4444; /* Neon Red */
+        border-radius: 50%;
+        transition: width 0.2s ease, height 0.2s ease;
+        box-shadow: 0 0 8px #ef4444;
+      }
+      .cursor-scope {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        animation: spin-slow 8s linear infinite;
+        transition: width 0.2s ease, height 0.2s ease, top 0.2s ease, left 0.2s ease;
+        filter: drop-shadow(0 0 5px #ef4444);
+      }
+      .scope-corner {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-color: #ef4444;
+        border-style: solid;
+        border-width: 0;
+      }
+      
+      .scope-corner.tl { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+      .scope-corner.tr { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+      .scope-corner.bl { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+      .scope-corner.br { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+
+      @keyframes spin-slow {
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Active Hover State */
+      #custom-cursor.cursor-active {
+        transform: translate(-50%, -50%) scale(1.3);
+      }
+      #custom-cursor.cursor-active .cursor-scope {
+        animation: spin-slow 3s linear infinite;
+        width: 130%;
+        height: 130%;
+        top: -15%;
+        left: -15%;
+      }
+      #custom-cursor.cursor-active .cursor-dot {
+        width: 4px;
+        height: 4px;
+      }
+
+      /* GLITCH EFFECT (TEXT) */
+      .glitch-hover { position: relative; display: inline-block; }
+      .glitch-hover:hover {
+        animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+      }
+      .glitch-hover:hover::before,
+      .glitch-hover:hover::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+      }
+      .glitch-hover:hover::before {
+        left: 3px;
+        text-shadow: -2px 0 #ef4444;
+        clip-path: inset(45% 0 30% 0);
+        animation: glitch-anim 2s infinite linear alternate-reverse;
+      }
+      .glitch-hover:hover::after {
+        left: -3px;
+        text-shadow: -2px 0 #06b6d4, 2px 2px #ef4444;
+        clip-path: inset(10% 0 60% 0);
+        animation: glitch-anim2 3s infinite linear alternate-reverse;
+      }
+
+      /* GLITCH EFFECT (IMAGE) */
+      .glitch-img-hover:hover {
+        animation: glitch-img-filter 0.1s infinite alternate;
+      }
+
+      @keyframes glitch-anim {
+        0% { clip-path: inset(20% 0 80% 0); }
+        20% { clip-path: inset(60% 0 10% 0); }
+        40% { clip-path: inset(40% 0 50% 0); }
+        60% { clip-path: inset(80% 0 5% 0); }
+        80% { clip-path: inset(10% 0 70% 0); }
+        100% { clip-path: inset(30% 0 50% 0); }
+      }
+      @keyframes glitch-anim2 {
+        0% { clip-path: inset(10% 0 60% 0); }
+        20% { clip-path: inset(30% 0 20% 0); }
+        40% { clip-path: inset(70% 0 10% 0); }
+        60% { clip-path: inset(5% 0 80% 0); }
+        80% { clip-path: inset(80% 0 5% 0); }
+        100% { clip-path: inset(40% 0 30% 0); }
+      }
+      @keyframes glitch-skew {
+        0% { transform: skew(0deg); }
+        20% { transform: skew(-4deg); }
+        40% { transform: skew(4deg); }
+        60% { transform: skew(-2deg); }
+        80% { transform: skew(2deg); }
+        100% { transform: skew(0deg); }
+      }
+      @keyframes glitch-img-filter {
+        0% { filter: hue-rotate(0deg) contrast(100%) saturate(100%) drop-shadow(0 0 10px rgba(255,0,0,0)); transform: translate(0, 0) scale(1.05); }
+        33% { filter: hue-rotate(-20deg) contrast(150%) saturate(150%) drop-shadow(-5px 0 0px #ef4444); transform: translate(-3px, 2px) scale(1.05); }
+        66% { filter: hue-rotate(20deg) contrast(130%) saturate(120%) drop-shadow(5px 0 0px #06b6d4); transform: translate(3px, -2px) scale(1.05); }
+        100% { filter: hue-rotate(-10deg) contrast(180%) saturate(180%) drop-shadow(0 5px 0px #ef4444); transform: translate(-2px, -3px) scale(1.05); }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] text-slate-900 dark:text-slate-100 font-sans selection:bg-slate-200 dark:selection:bg-slate-700 overflow-x-hidden relative transition-colors duration-500" onload="document.body.style.visibility='visible'">
+    
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen" class="fixed inset-0 z-[999999] bg-[#050505] flex flex-col justify-end p-6 md:p-12 pointer-events-auto transition-opacity duration-500 font-mono text-green-500 overflow-hidden">
+      <div id="boot-text" class="text-xs sm:text-sm md:text-base whitespace-pre-wrap leading-relaxed drop-shadow-[0_0_5px_rgba(34,197,94,0.8)]"></div>
+      <div class="mt-2 flex items-center text-xs sm:text-sm md:text-base drop-shadow-[0_0_5px_rgba(34,197,94,0.8)]">
+        <span>> </span><span class="animate-blink ml-2 w-2 h-4 sm:h-5 bg-green-500 inline-block"></span>
+      </div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor">
+      <div class="cursor-dot"></div>
+      <div class="cursor-scope">
+        <div class="scope-corner tl"></div>
+        <div class="scope-corner tr"></div>
+        <div class="scope-corner bl"></div>
+        <div class="scope-corner br"></div>
+      </div>
+    </div>
+    
+    <div id="app" class="relative">
+      <!-- FIXED CYBERPUNK GRID BACKGROUND -->
+      <div class="fixed inset-0 pointer-events-none z-[-30] bg-grid-pattern transition-colors duration-500"></div>
+
+      <!-- HERO SECTION -->
+      <div id="home" class="relative min-h-[100vh] flex flex-col">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none transition-opacity duration-500">
+          <div class="absolute -top-[5%] -left-[10%] w-[60%] h-[60%] rounded-full bg-slate-200/50 dark:bg-[#1a1a2e]/60 blur-3xl opacity-60 dark:opacity-80"></div>
+          <div class="absolute top-[20%] -right-[10%] w-[50%] h-[70%] rounded-full bg-slate-200/40 dark:bg-[#16213e]/50 blur-3xl opacity-50 dark:opacity-70"></div>
+        </div>
+
+        <!-- HEADER NAVBAR -->
+        <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-[90%] max-w-[1400px] opacity-0 animate-slide-down-center [animation-delay:100ms]">
+          <nav class="flex items-center justify-between px-4 py-3 md:px-8 md:py-4 bg-white/80 dark:bg-[#111111]/80 backdrop-blur-xl border border-white dark:border-white/10 shadow-xl shadow-slate-200/50 dark:shadow-black/50 rounded-full transition-colors duration-500">
+            <!-- Theme Toggle -->
+            <div class="flex items-center">
+              <button id="theme-toggle" class="relative w-14 h-7 flex items-center rounded-full p-1 transition-colors duration-300 focus:outline-none border bg-slate-200 border-slate-300 dark:bg-[#1a1a1a] dark:border-white/20" aria-label="Toggle Dark Mode">
+                <div id="theme-toggle-icon" class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center translate-x-0 dark:translate-x-7">
+                  <svg id="theme-toggle-light" class="w-3.5 h-3.5 text-amber-500 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                  <svg id="theme-toggle-dark" class="w-3.5 h-3.5 text-slate-800 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </div>
+              </button>
+            </div>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8 xl:gap-12 text-sm font-bold text-slate-800 dark:text-slate-200">
+              <a href="#home" class="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Tentang Saya</a>
+              <a href="#work" class="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Karya</a>
+              <a href="#service" class="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Keahlian</a>
+              <a href="#experience" class="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Pengalaman</a>
+              <a href="#contact" class="hover:text-slate-500 dark:hover:text-slate-400 transition-colors">Kontak</a>
+            </div>
+
+            <!-- Mobile & Right Nav -->
+            <div class="flex items-center gap-3 md:gap-4">
+
+              
+              <div class="flex lg:hidden items-center gap-2">
+                <button id="mobile-menu-btn" class="p-2 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-800 dark:text-white transition-colors focus:outline-none">
+                  <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                  <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Mobile Dropdown -->
+          <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 w-full mt-2 bg-white/95 dark:bg-[#111111]/95 backdrop-blur-xl border border-white dark:border-white/10 shadow-xl shadow-slate-200/50 dark:shadow-black/50 rounded-3xl overflow-hidden p-4 flex flex-col gap-2 animate-slide-up z-40 transition-colors duration-500">
+            <a href="#home" class="mobile-nav-link px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl font-bold text-slate-800 dark:text-slate-200 transition-colors">Tentang Saya</a>
+            <a href="#work" class="mobile-nav-link px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl font-bold text-slate-800 dark:text-slate-200 transition-colors">Karya</a>
+            <a href="#service" class="mobile-nav-link px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl font-bold text-slate-800 dark:text-slate-200 transition-colors">Keahlian</a>
+            <a href="#experience" class="mobile-nav-link px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl font-bold text-slate-800 dark:text-slate-200 transition-colors">Pengalaman</a>
+            <a href="#contact" class="mobile-nav-link px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl font-bold text-slate-800 dark:text-slate-200 transition-colors">Kontak</a>
+
+          </div>
+        </div>
+
+        <!-- MAIN HERO CONTENT -->
+        <main class="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pt-20 sm:pt-28 md:pt-32 h-full flex flex-col justify-between flex-grow">
+          <!-- MASSIVE BACKGROUND TEXT (Relative wrapper preserves layout flow) -->
+          <div class="relative z-0 w-full h-[15vh] md:h-[20vh] mt-0 mb-8 md:mb-12 pointer-events-none flex items-center justify-center">
+            <!-- Center the overflowing text without breaking animation -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div class="animate-slide-down-solid [animation-delay:300ms]">
+                <h1 class="text-[20vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] leading-[0.85] font-black tracking-tighter uppercase flex flex-row items-center justify-center transition-colors duration-500 whitespace-nowrap">
+                  <span class="text-stroke-2 glitch-hover cursor-pointer pointer-events-auto" data-text="ALFIN.">ALFIN.</span>
+                  <span class="text-[#111] dark:text-white ml-[1vw] md:ml-[2vw] drop-shadow-[0_0_25px_rgba(99,102,241,0.6)] dark:drop-shadow-[0_0_30px_rgba(34,211,238,0.7)] transition-all duration-500 glitch-hover cursor-pointer pointer-events-auto" data-text="RA">RA</span>
+                </h1>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALFIN PORTRAIT (FRONT OF TEXT) -->
+          <div class="absolute bottom-0 md:bottom-[4vh] left-0 z-10 h-[75vh] sm:h-[85vh] md:h-[90vh] lg:h-[95vh] w-full pointer-events-none opacity-0 animate-slide-up [animation-delay:600ms] flex items-end justify-center">
+            
+            <!-- ORBITING SMOKE EFFECT -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] -z-10 mix-blend-multiply dark:mix-blend-screen pointer-events-none">
+              <div class="relative w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] animate-[spin_20s_linear_infinite]">
+                <div class="absolute top-0 right-[10%] w-[300px] md:w-[450px] h-[300px] md:h-[450px] bg-gradient-to-tr from-indigo-500/40 to-transparent dark:from-indigo-600/40 rounded-full blur-[80px] opacity-0 animate-smoke [animation-delay:0ms]"></div>
+                <div class="absolute bottom-[10%] left-[10%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-gradient-to-tr from-purple-500/40 to-transparent dark:from-purple-600/40 rounded-full blur-[80px] opacity-0 animate-smoke [animation-delay:2000ms]"></div>
+                <div class="absolute top-[20%] left-[20%] w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-gradient-to-tr from-pink-500/30 to-transparent dark:from-cyan-600/30 rounded-full blur-[90px] opacity-0 animate-smoke [animation-delay:4000ms]"></div>
+              </div>
+            </div>
+
+            <!-- Black Jacket Image (Fades out in dark mode) -->
+            <img src="./src/assets/alfin.png" alt="Alfin Portrait Black" class="h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-100 dark:opacity-0 pointer-events-auto dark:pointer-events-none glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
+            
+            <!-- White Jacket Image (Fades in in dark mode) -->
+            <img src="./src/assets/alfin_white.png" alt="Alfin Portrait White" class="absolute h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-0 dark:opacity-100 pointer-events-none dark:pointer-events-auto glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
+          </div>
+
+          <div class="relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end pb-16 md:pb-24 mt-auto pointer-events-none">
+            <div class="lg:col-span-5 text-center lg:text-left space-y-4 md:space-y-6 opacity-0 animate-slide-right [animation-delay:500ms] flex flex-col items-center lg:items-start min-h-[220px] pointer-events-auto">
+              <h2 id="hero-type-title" class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white transition-colors duration-500 min-h-[80px] md:min-h-[100px]">
+                Full Stack Developer <br class="hidden lg:block"/>& Prompt Engineer
+              </h2>
+              <p id="hero-type-desc" class="text-sm sm:text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-[300px] sm:max-w-sm transition-colors duration-500 min-h-[60px] md:min-h-[80px]">
+                Membangun aplikasi web berskala besar menggunakan teknologi modern.
+              </p>
+              <a href="https://wa.me/6282257066433" target="_blank" rel="noopener noreferrer" class="flex w-max items-center gap-2 bg-[#111] dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-[#111] text-xs sm:text-sm md:text-base font-semibold px-6 py-3 sm:px-7 sm:py-4 rounded-full transition-all duration-300 shadow-xl shadow-slate-300/50 dark:shadow-none group mt-2">
+                Mari Kolaborasi
+                <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
+
+            <div class="lg:col-span-4 lg:col-start-9 flex flex-row flex-wrap justify-center lg:justify-end gap-3 md:gap-4 opacity-0 animate-slide-up [animation-delay:700ms] w-full pointer-events-auto">
+              <a href="https://www.instagram.com/_finn.ra?igsh=MThwYjczeDI5Zjgyeg==" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 sm:gap-3 px-2 py-2 text-xs sm:text-sm md:text-base font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300 group" aria-label="Instagram">
+                <span class="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <svg class="w-5 h-5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></rect><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line></svg>
+                </span>
+                <span class="hidden sm:inline relative">
+                  Instagram
+                  <span class="absolute left-0 -bottom-1 w-0 h-[1.5px] bg-slate-900 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
+                </span>
+              </a>
+              <a href="https://www.linkedin.com/in/moch-alfin-rembang-alfiro-b58000321" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 sm:gap-3 px-2 py-2 text-xs sm:text-sm md:text-base font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300 group" aria-label="LinkedIn">
+                <span class="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <svg class="w-5 h-5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"></path><rect x="2" y="9" width="4" height="12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></rect><circle cx="4" cy="4" r="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg>
+                </span>
+                <span class="hidden sm:inline relative">
+                  LinkedIn
+                  <span class="absolute left-0 -bottom-1 w-0 h-[1.5px] bg-slate-900 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
+                </span>
+              </a>
+              <a href="https://github.com/alfinrembang" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 sm:gap-3 px-2 py-2 text-xs sm:text-sm md:text-base font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300 group" aria-label="GitHub">
+                <span class="group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <svg class="w-5 h-5 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                </span>
+                <span class="hidden sm:inline relative">
+                  GitHub
+                  <span class="absolute left-0 -bottom-1 w-0 h-[1.5px] bg-slate-900 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- WORK SECTION -->
+      <section id="work" class="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-20 md:py-32">
+        <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out flex flex-col items-center md:items-start mb-12 md:mb-16">
+          <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase flex flex-wrap gap-3">
+            <span>Proyek</span>
+            <span class="text-stroke-1">Pilihan</span>
+          </h2>
+          <p class="mt-4 text-slate-500 dark:text-slate-400 font-medium text-base sm:text-lg max-w-2xl text-center md:text-left">
+            Pilihan aplikasi full-stack, integrasi AI, dan eksperimen teknis terbaru saya.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          
+          <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out flex flex-col h-full" style="transition-delay: 100ms">
+            <div class="group relative bg-white dark:bg-[#111111] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 hover:shadow-2xl hover:shadow-slate-200/50 dark:hover:shadow-black/50 transition-all duration-500 flex flex-col h-full tilt-card" style="will-change: transform;">
+              <div class="relative h-64 sm:h-80 bg-slate-100 dark:bg-[#1a1a1a] overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/10 dark:to-purple-500/10 group-hover:scale-105 transition-transform duration-700"></div>
+                <img src="./src/assets/eci.png" alt="ECIIDONESIA Screenshot" class="absolute inset-x-4 bottom-0 sm:inset-x-8 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] h-auto object-cover object-top rounded-t-xl shadow-2xl transform group-hover:translate-y-2 transition-transform duration-500 border-t border-x border-slate-200 dark:border-white/10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="hidden absolute inset-x-8 bottom-0 h-[85%] bg-white dark:bg-[#181818] rounded-t-2xl shadow-2xl border-t border-x border-slate-200 dark:border-white/10 p-5 flex-col gap-4 transform group-hover:translate-y-2 transition-transform duration-500">
+                  <div class="w-1/3 h-5 bg-slate-100 dark:bg-white/5 rounded-full"></div>
+                  <div class="w-full h-32 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5"></div>
+                  <div class="flex gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5"></div>
+                    <div class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-white/5"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 sm:p-8 flex flex-col flex-grow">
+                <div class="flex justify-between items-start mb-4">
+                  <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors uppercase tracking-wide">
+                    ECIIDONESIA
+                  </h3>
+                  <a href="#" class="p-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full text-slate-600 dark:text-slate-300 transition-colors" aria-label="View Github">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                  </a>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 mb-6 flex-grow text-sm sm:text-base leading-relaxed">
+                  Platform inovatif yang menghubungkan karya lokal (craftsmanship) Indonesia ke pasar nasional dan global. Dibangun dengan performa tinggi dan didukung oleh optimasi AI.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-8">
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Laravel</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Inertia</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">React</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Tailwind</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">PHP</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">MySQL</span>
+                  <span class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800/50 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-indigo-700 dark:text-indigo-300">Prompt Engineering</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out flex flex-col h-full lg:mt-16" style="transition-delay: 300ms">
+            <div class="group relative bg-white dark:bg-[#111111] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 hover:shadow-2xl hover:shadow-slate-200/50 dark:hover:shadow-black/50 transition-all duration-500 flex flex-col h-full tilt-card" style="will-change: transform;">
+              <div class="relative h-64 sm:h-80 bg-slate-100 dark:bg-[#1a1a1a] overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/10 dark:to-purple-500/10 group-hover:scale-105 transition-transform duration-700"></div>
+                <img src="./src/assets/tmnetwork.png" alt="TM NETWORK Screenshot" class="absolute inset-x-4 bottom-0 sm:inset-x-8 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] h-auto object-cover object-top rounded-t-xl shadow-2xl transform group-hover:translate-y-2 transition-transform duration-500 border-t border-x border-slate-200 dark:border-white/10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="hidden absolute inset-x-8 bottom-0 h-[85%] bg-white dark:bg-[#181818] rounded-t-2xl shadow-2xl border-t border-x border-slate-200 dark:border-white/10 p-5 flex-col gap-4 transform group-hover:translate-y-2 transition-transform duration-500">
+                  <div class="w-1/3 h-5 bg-slate-100 dark:bg-white/5 rounded-full"></div>
+                  <div class="w-full h-32 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-100 dark:border-white/5"></div>
+                  <div class="flex gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5"></div>
+                    <div class="flex-1 h-10 rounded-xl bg-slate-100 dark:bg-white/5"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 sm:p-8 flex flex-col flex-grow">
+                <div class="flex justify-between items-start mb-4">
+                  <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors uppercase tracking-wide">
+                    TM NETWORK
+                  </h3>
+                  <a href="#" class="p-2.5 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full text-slate-600 dark:text-slate-300 transition-colors" aria-label="View Github">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                  </a>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 mb-6 flex-grow text-sm sm:text-base leading-relaxed">
+                  Media pusat untuk berita lokal indonesia, menjadi rumah atau wadah untuk berita berita yang ada di indonesia di tampilkan menggunakan sebuah link rss menggunakan teknologi yang modern agar bisa menampilkan berita berita dari berbagai portal berita raksasa yang ada di indonesia.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-8">
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Laravel</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Inertia</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">React</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">Tailwind</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">PHP</span>
+                  <span class="px-3 py-1.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-slate-700 dark:text-slate-300">MySQL</span>
+                  <span class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800/50 rounded-full text-[11px] sm:text-xs font-bold tracking-wide text-indigo-700 dark:text-indigo-300">Prompt Engineering</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECH STACK & SKILLS -->
+      <section id="service" class="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-20 md:py-32">
+        <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out flex flex-col items-center md:items-start mb-12 md:mb-16">
+          <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase flex flex-wrap gap-3">
+            <span>Teknologi</span>
+            <span class="text-stroke-1">Andalan</span>
+          </h2>
+          <p class="mt-4 text-slate-500 dark:text-slate-400 font-medium text-base sm:text-lg max-w-2xl text-center md:text-left">
+            Kumpulan alat dan teknologi andalan saya untuk membangun aplikasi web performa tinggi dan solusi berbasis AI.
+          </p>
+        </div>
+
+        <div class="relative w-full overflow-hidden mt-8 md:mt-16 py-10" id="tech-stack-marquee">
+          <!-- Marquee populated by JS to avoid duplication in HTML -->
+        </div>
+
+        <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out mt-12 md:mt-24 text-center" style="transition-delay: 300ms">
+          <h3 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-slate-900/10 via-slate-900/80 to-slate-900/10 dark:from-white/10 dark:via-white/80 dark:to-white/10 bg-[length:200%_auto] animate-shimmer">
+            Future Developers
+          </h3>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE SECTION -->
+      <section id="experience" class="relative max-w-[1000px] mx-auto px-4 sm:px-6 md:px-12 py-20 md:py-32">
+        <div class="fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out flex flex-col items-center mb-16 md:mb-24 text-center">
+          <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase flex flex-wrap justify-center gap-3">
+            <span>Jejak</span>
+            <span class="text-stroke-1">Karier</span>
+          </h2>
+          <p class="mt-4 text-slate-500 dark:text-slate-400 font-medium text-base sm:text-lg max-w-2xl">
+            Perjalanan profesional saya dalam dunia pengembangan web dan kecerdasan buatan.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div class="absolute left-[15px] md:left-1/2 top-0 bottom-0 w-[2px] bg-slate-200 dark:bg-white/10 -translate-x-1/2 rounded-full"></div>
+          <div class="absolute left-[15px] md:left-1/2 top-0 bottom-0 w-[2px] bg-indigo-500/50 -translate-x-1/2 blur-md hidden dark:block"></div>
+
+          <div class="space-y-12 md:space-y-0 relative z-10" id="experience-timeline">
+            <!-- Experience list populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT & FOOTER SECTION -->
+      <section id="contact" class="relative w-full px-4 sm:px-6 md:px-12 py-20 md:py-32 overflow-hidden">
+        <div class="max-w-[1000px] mx-auto fade-in-section opacity-0 translate-y-12 transition-all duration-1000 ease-out">
+          
+          <div class="bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-[3rem] p-8 md:p-16 text-center relative overflow-hidden shadow-2xl">
+            <!-- Glow background -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[600px] max-h-[600px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+            
+            <div class="relative z-10">
+              <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white uppercase mb-6">
+                Mari <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-400">Kolaborasi</span>
+              </h2>
+              <p class="text-slate-500 dark:text-slate-400 font-medium text-base sm:text-lg max-w-2xl mx-auto mb-12">
+                Punya ide proyek menarik atau peluang kerja sama? Jangan ragu untuk menghubungi saya. Mari wujudkan ide cemerlang bersama!
+              </p>
+              
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                <a href="mailto:alfin@example.com" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-full hover:scale-105 transition-transform duration-300 shadow-xl shadow-slate-900/20 dark:shadow-white/20 flex items-center justify-center gap-3 w-full sm:w-auto cursor-pointer">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                  Email Saya
+                </a>
+                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white dark:bg-[#1a1a1a] text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 font-bold rounded-full hover:bg-slate-50 dark:hover:bg-white/5 transition-colors duration-300 flex items-center justify-center gap-3 w-full sm:w-auto cursor-pointer">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 1.76.455 3.415 1.25 4.872L2 22l5.312-1.192A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm5.55 13.56c-.28.78-1.55 1.5-2.14 1.57-.54.06-1.19.16-3.41-.76-2.66-1.11-4.38-3.83-4.51-4.01-.13-.18-1.08-1.44-1.08-2.75 0-1.31.68-1.95.92-2.22.24-.28.52-.35.69-.35.18 0 .35 0 .5.01.16.01.38-.06.59.45.22.52.75 1.83.82 1.96.06.13.11.28.02.46-.09.18-.13.28-.27.44-.13.15-.28.34-.39.46-.12.13-.25.26-.11.51.13.24.59 1 1.27 1.6.88.78 1.61 1.02 1.86 1.15.24.13.38.11.52-.06.15-.17.65-.76.82-1.02.17-.26.34-.22.56-.13.22.09 1.4.66 1.64.78.24.13.39.18.45.28.06.11.06.63-.22 1.41z"></path></svg>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <footer class="mt-20 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">
+              &copy; 2026 Alfin RA. All rights reserved.
+            </p>
+            <div class="flex items-center gap-4 text-slate-500 dark:text-slate-400">
+              <a href="#home" class="hover:text-indigo-500 dark:hover:text-cyan-400 transition-colors" title="Kembali ke atas">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+              </a>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </div>
+    
+    <script src="src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-size: 80px 80px;
+    background-image: 
+      linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+  }
+
+  .text-stroke-1 {
+    -webkit-text-stroke: 2px #111;
+    color: transparent;
+  }
+  
+  .text-stroke-2 {
+    -webkit-text-stroke: 3px #111;
+    color: transparent;
+  }
+
+  .dark .text-stroke-1 {
+    -webkit-text-stroke: 2px white;
+  }
+
+  .dark .text-stroke-2 {
+    -webkit-text-stroke: 3px white;
+  }
+}
+
+@layer base {
+  body {
+    background-color: #fafafa;
+    color: #111;
+    overflow-x: hidden;
+  }
+}
