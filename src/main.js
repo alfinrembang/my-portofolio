@@ -421,4 +421,193 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* =====================
+     LIGHTBOX POPUP
+  ===================== */
+  const lightboxModal = document.getElementById('lightbox-modal');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  
+  // Select all images in the achievements section
+  const galleryImages = document.querySelectorAll('#achievements img');
+
+  if (lightboxModal && lightboxImg && galleryImages.length > 0) {
+    
+    function openLightbox(src) {
+      lightboxImg.src = src;
+      lightboxModal.classList.remove('hidden');
+      lightboxModal.classList.add('flex');
+      // small delay to allow display:flex to apply before animating opacity
+      setTimeout(() => {
+        lightboxModal.classList.remove('opacity-0');
+        lightboxModal.classList.add('opacity-100');
+        lightboxImg.classList.remove('scale-95');
+        lightboxImg.classList.add('scale-100');
+      }, 10);
+      document.body.style.overflow = 'hidden'; // prevent scrolling
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.remove('opacity-100');
+      lightboxModal.classList.add('opacity-0');
+      lightboxImg.classList.remove('scale-100');
+      lightboxImg.classList.add('scale-95');
+      setTimeout(() => {
+        lightboxModal.classList.remove('flex');
+        lightboxModal.classList.add('hidden');
+        lightboxImg.src = ''; // clear src
+        document.body.style.overflow = ''; // restore scrolling
+      }, 300); // match transition duration
+    }
+
+    // Add click listeners to images
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        openLightbox(img.src);
+      });
+    });
+
+    // Close on X button
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    // Close on clicking outside the image
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg && e.target !== lightboxClose && !lightboxClose.contains(e.target)) {
+        closeLightbox();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) {
+        closeLightbox();
+      }
+    });
+  }
+
+  /* =====================
+     SCROLL PROGRESS BAR
+  ===================== */
+  const scrollProgressBar = document.getElementById('scroll-progress-bar');
+  if (scrollProgressBar) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollTop / scrollHeight) * 100;
+      scrollProgressBar.style.width = scrollPercentage + '%';
+    });
+  }
+
+  /* =====================
+     PARTICLES.JS NETWORK
+  ===================== */
+  if (document.getElementById('particles-js') && window.particlesJS) {
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#6366f1", "#06b6d4", "#94a3b8"]
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#94a3b8",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.5,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "bounce",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 200,
+            "line_linked": {
+              "opacity": 0.8
+            }
+          },
+          "push": {
+            "particles_nb": 4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  }
+
+  /* =====================
+     LIVE TIME WIDGET
+  ===================== */
+  const liveTimeEl = document.getElementById('live-time');
+  if (liveTimeEl) {
+    function updateTime() {
+      const options = { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      const formatter = new Intl.DateTimeFormat('en-US', options);
+      const timeString = formatter.format(new Date());
+      liveTimeEl.textContent = `Waktu di Jember: ${timeString}`;
+    }
+    
+    updateTime();
+    setInterval(updateTime, 1000);
+  }
+
 });
