@@ -37,6 +37,8 @@
               'blink': 'blink 1.2s step-end infinite',
               'shimmer': 'shimmer 8s linear infinite',
               'marquee': 'marquee 25s linear infinite',
+              'hero-pulse': 'hero-pulse 4s ease-in-out infinite',
+              'hero-pulse-mobile': 'hero-pulse-mobile 4s ease-in-out infinite',
             },
             keyframes: {
               'slide-up': {
@@ -94,6 +96,14 @@
               'marquee': {
                 '0%': { transform: 'translateX(0%)' },
                 '100%': { transform: 'translateX(-100%)' },
+              },
+              'hero-pulse': {
+                '0%, 100%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 15px rgba(99, 102, 241, 0.2))' },
+                '50%': { transform: 'scale(1.02)', filter: 'drop-shadow(0 0 35px rgba(99, 102, 241, 0.7))' },
+              },
+              'hero-pulse-mobile': {
+                '0%, 100%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 8px rgba(99, 102, 241, 0.15))' },
+                '50%': { transform: 'scale(1.01)', filter: 'drop-shadow(0 0 20px rgba(99, 102, 241, 0.5))' },
               }
             }
           }
@@ -378,11 +388,14 @@
               </div>
             </div>
 
-            <!-- Black Jacket Image (Fades out in dark mode) -->
-            <img src="./src/assets/alfin.png" alt="Alfin Portrait Black" class="h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-110 sm:scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-100 dark:opacity-0 pointer-events-auto dark:pointer-events-none glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
-            
-            <!-- White Jacket Image (Fades in in dark mode) -->
-            <img src="./src/assets/alfin_white.png" alt="Alfin Portrait White" class="absolute h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-110 sm:scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-0 dark:opacity-100 pointer-events-none dark:pointer-events-auto glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
+            <!-- Hero Pulse Wrapper -->
+            <div class="absolute inset-0 flex items-end justify-center origin-bottom animate-hero-pulse-mobile md:animate-hero-pulse pointer-events-none">
+              <!-- Black Jacket Image (Fades out in dark mode) -->
+              <img src="./src/assets/alfin.png" alt="Alfin Portrait Black" class="h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-110 sm:scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-100 dark:opacity-0 pointer-events-auto dark:pointer-events-none glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
+              
+              <!-- White Jacket Image (Fades in in dark mode) -->
+              <img src="./src/assets/alfin_white.png" alt="Alfin Portrait White" class="absolute h-full w-auto object-contain object-bottom drop-shadow-2xl transform scale-110 sm:scale-105 md:scale-115 origin-bottom transition-opacity duration-700 opacity-0 dark:opacity-100 pointer-events-none dark:pointer-events-auto glitch-img-hover cursor-pointer" style="-webkit-mask-image: linear-gradient(to top, transparent 0%, black 5%); mask-image: linear-gradient(to top, transparent 0%, black 5%);" />
+            </div>
           </div>
 
           <div class="relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end pb-8 sm:pb-16 md:pb-24 mt-auto pointer-events-none">
